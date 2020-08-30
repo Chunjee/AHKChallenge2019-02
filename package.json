@@ -1,0 +1,26 @@
+{
+	"name": "ahkchallenge201902.ahk",
+	"version": "0.1.0",
+	"description": "none",
+	"main": "app.ahk",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Chunjee/ahkchallenge201902.ahk.git"
+	},
+	"dependencies": {
+		"array.ahk": "^0.1.8",
+		"biga.ahk": "^0.33.2",
+		"permutations.ahk": "^0.1.2"
+	},
+	"devDependencies": {
+		"unit-testing.ahk": "^0.3.3"
+	},
+	"author": "Shawn Brooker",
+	"contributors": [
+		{
+			"name": "Shawn Brooker",
+			"url": "https://github.com/chunjee"
+		}
+	],
+	"license": "MIT"
+}

@@ -4,10 +4,14 @@ SetBatchLines -1 ;Go as fast as CPU will allow
 
 ; Includes
 #Include %A_ScriptDir%\node_modules
+#Include array.ahk\export.ahk
 #Include biga.ahk\export.ahk
+#Include permutations.ahk\export.ahk
 
-; instanciate any classes
+
+; instanciate classes
 A := new biga()
+
 
 ; inputs
 inputs := [ "GRAPES", "TRIANGLE", "PRAISE", "SPEAR"]
@@ -37,7 +41,7 @@ for _, value in inputs {
 		}
 	}
 	; msgbox any 
-	msgbox, % A.print(validArray)
+	msgbox, % validArray.join(", ")
 }
 exitapp
 
@@ -50,65 +54,3 @@ exitapp
 ;/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\
 ; Classes
 ;\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/--\--/
-
-class permutations {
-	; --- Static Methods ---
-	generate(param_array, param_stringOut:=false, param_maxPermutation:="") {
-		; prepare inputs
-		if (!IsObject(param_array)) {
-			param_array := StrSplit(param_array)
-		}
-
-		this.outArray := []
-		l_length := param_array.Count()
-		l_permutationsArray := this.gen(l_length, param_array, param_maxPermutations)
-		; return array of arrays if user didn't specify param_stringOut
-		if (param_stringOut == false) {
-			return l_permutationsArray
-		}
-		l_OutArray := []
-		for _, l_obj in l_permutationsArray {
-			l_string := ""
-			for l_index, l_value in l_obj {
-				l_string .= l_value
-				;  (index < this.Count() ? "" : "")
-			}
-			l_OutArray.push(l_string)
-		}
-		return l_OutArray
-	}
-	
-	gen(param_n:="", param_array:="", param_maxPermutations:="") {
-		; prepare defaults
-		if (param_n == "") {
-			param_n := param_array.Count()
-		}
-
-		; create
-		if (param_n == 1) {
-			this.outArray.push(param_array.Clone())
-		}
-		loop, % param_n
-		{
-			if (param_maxPermutations) {
-				if (param_maxPermutations <= this.outArray.Count()) {
-					return this.outArray
-				}
-			}
-			this.gen(param_n - 1, param_array, param_maxPermutations)
-			if (mod(param_n, 2) != 0) {
-				this._swap(param_array, 1, param_n) ;odd
-			} else {
-				this._swap(param_array, A_Index, param_n)
-			}
-		}
-		return this.outArray
-	}
-
-	_swap(param_array, param_index1, param_index2) {
-		tempVar := param_array[param_index1]
-		param_array[param_index1] := param_array[param_index2]
-		param_array[param_index2] := tempVar
-		return param_array
-	}
-}
